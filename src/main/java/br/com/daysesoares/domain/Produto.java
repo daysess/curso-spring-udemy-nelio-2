@@ -15,24 +15,20 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Produto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Double preco;
-	
+
 	@JsonBackReference
 	@ManyToMany
-	@JoinTable(
-			name = "PRODUTO_CATEGORIA",
-			joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
+	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
-	
+
 	public Produto() {
-		
+
 	}
 
 	public Produto(Integer id, String nome, Double preco) {
@@ -65,13 +61,9 @@ public class Produto {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	
+
 	public List<Categoria> getCategorias() {
 		return categorias;
-	}
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
 	}
 
 	@Override
@@ -98,7 +90,5 @@ public class Produto {
 			return false;
 		return true;
 	}
-	
-	
 
 }
