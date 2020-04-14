@@ -13,6 +13,7 @@ import br.com.daysesoares.domain.Cidade;
 import br.com.daysesoares.domain.Cliente;
 import br.com.daysesoares.domain.Endereco;
 import br.com.daysesoares.domain.Estado;
+import br.com.daysesoares.domain.ItemPedido;
 import br.com.daysesoares.domain.Pagamento;
 import br.com.daysesoares.domain.PagamentoComBoleto;
 import br.com.daysesoares.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.daysesoares.repository.CidadeRepository;
 import br.com.daysesoares.repository.ClienteRepository;
 import br.com.daysesoares.repository.EnderecoRepository;
 import br.com.daysesoares.repository.EstadoRepository;
+import br.com.daysesoares.repository.ItemPedidoRepository;
 import br.com.daysesoares.repository.PagamentoRepository;
 import br.com.daysesoares.repository.PedidoRepository;
 import br.com.daysesoares.repository.ProdutoRepository;
@@ -48,6 +50,8 @@ public class CursoSpringParte1Application implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringParte1Application.class, args);
@@ -109,6 +113,19 @@ public class CursoSpringParte1Application implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().add(ip3);
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 
