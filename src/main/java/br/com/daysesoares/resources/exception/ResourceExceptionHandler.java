@@ -1,8 +1,5 @@
 package br.com.daysesoares.resources.exception;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
