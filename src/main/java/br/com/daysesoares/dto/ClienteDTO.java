@@ -7,7 +7,9 @@ import javax.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.daysesoares.domain.Cliente;
+import br.com.daysesoares.services.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
