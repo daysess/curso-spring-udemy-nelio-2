@@ -14,11 +14,14 @@ import org.springframework.stereotype.Service;
 import br.com.daysesoares.domain.Cidade;
 import br.com.daysesoares.domain.Cliente;
 import br.com.daysesoares.domain.Endereco;
+import br.com.daysesoares.domain.enums.Perfil;
 import br.com.daysesoares.domain.enums.TipoCliente;
 import br.com.daysesoares.dto.ClienteDTO;
 import br.com.daysesoares.dto.ClienteNewDTO;
 import br.com.daysesoares.repository.ClienteRepository;
 import br.com.daysesoares.repository.EnderecoRepository;
+import br.com.daysesoares.security.UserSS;
+import br.com.daysesoares.service.exceptions.AuthorizationException;
 import br.com.daysesoares.service.exceptions.DataIntegrityException;
 import br.com.daysesoares.service.exceptions.ObjectNotFoundException;
 
@@ -35,6 +38,11 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 		
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) || !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado!");
+		}
 		
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return  obj.orElseThrow(() -> new ObjectNotFoundException(
