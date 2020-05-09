@@ -3,6 +3,7 @@ package br.com.daysesoares.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -18,6 +19,7 @@ public class ClienteDTO implements Serializable{
 	@Length(min=5, max= 120, message = "Tamanho deve ser entre 5 e 120 caracteres.")
 	private String nome;
 	
+	@NotNull(message = "Preenchimento obrigatório")
 	@Email(message = "Email inválido.")
 	private String email;
 	
