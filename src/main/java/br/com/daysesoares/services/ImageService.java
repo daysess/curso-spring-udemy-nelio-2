@@ -58,7 +58,7 @@ public class ImageService {
 		return Scalr.crop(
 			sourceImg,
 			(sourceImg.getWidth()/2) - (min/2),
-			(sourceImg.getWidth()/2) - (min/2),
+			(sourceImg.getHeight()/2) - (min/2),
 			min,
 			min);
 	}
